@@ -1,15 +1,47 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
+# This is an my solution on assignment 2, created 15-12-2023
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  # This function creates a matrix object that can be cashed
+  
+  inv <- NULL
+  
+  # Set the elements of the matrix
+  set <- function(y) {
+    x <<- y
+    inv <<- NULL
+  }
+  
+  # Get the elements of the matrix
+  get <- function() {
+    x
+  }
+  
+  # Set the elements of the matrix inverse
+  set_inverse <- function(inverse) {
+    inv <<- inverse
+  }
+    
+  # Get the elements of the matrix inverse
+  get_inverse <- function() {
+    inv
+  }
+  
+  list(set = set, get = get,
+       set_inverse = set_inverse,
+       get_inverse = get_inverse)
 }
 
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+cacheSolve <- function(x, ...){
+  # This functions returned a matrix that is inverted
+  inv <- x$get_inverse()
+  
+  if(!is.null(inv)) {
+    message("Getting cached data")
+    return(inv)
+  }
+  
+  matrix_to_invert <- x$get()
+  inv <- solve(matrix_to_invert, ...)
+  x$set_inverse(inv)
+  inv
 }
